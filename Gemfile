@@ -61,4 +61,4 @@ gem "binding_of_caller", group: :development
 gem 'activerecord_any_of'
 
 # S3 management
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk'
