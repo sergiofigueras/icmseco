@@ -5,7 +5,11 @@ gem 'rails', '4.2.0'
 # Sprockets
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :development
+#Use pg to production
+gem 'pg', group: :production
+#Heroku 12_factor_rails
+gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
 # Use Uglifier as compressor for JavaScript assets
