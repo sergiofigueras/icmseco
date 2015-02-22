@@ -1,0 +1,20 @@
+.navbar.navbar-inverse.navbar-fixed-top
+     .container
+      .navbar-header
+        = link_to image_tag('logo-header.png', class: 'logo-header-size'), root_path, class: 'navbar-brand'
+      .navbar-collapse
+        - if current_usuario.meioambiente?
+          ul.nav.navbar-nav
+            li = link_to 'Meio Ambiente', meioambiente_index_path, "data-no-turbolink" => "true"
+        - if current_usuario.avaliacao?
+          ul.nav.navbar-nav
+            li = link_to 'Avaliação', arquivos_avaliacao_path, "data-no-turbolink" => "true"
+          ul.nav.navbar-nav
+            li = link_to 'Arquivos', arquivos_todos_path
+        - if current_usuario.admin?
+          ul.nav.navbar-nav
+            li = link_to 'Usuários', usuarios_path
+
+        ul.nav.navbar-nav.pull-right
+          li = link_to current_usuario.full_nome, edit_usuario_path(current_usuario)
+          li = link_to 'Sair', destroy_usuario_session_path, method: :delete

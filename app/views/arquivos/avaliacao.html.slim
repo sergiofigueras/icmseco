@@ -1,0 +1,37 @@
+= render 'shared/flash'
+
+javascript:
+  function func(){
+    $('#divvvv input').each(function(){alert(this.value)})
+  }
+
+- if @arquivos.any?
+  .text-center.h4 Avaliação de Arquivos
+
+
+  table.table
+    thead
+      tr
+        th Documento
+        th Nome
+        th Nota (0 a 100)
+        th Cancelar?
+        th Observação
+        th
+        th
+
+    tbody
+      - @arquivos.each do |arquivo|
+        tr
+          = simple_form_for(arquivo, url: documento_arquivo_path(arquivo.documento.id, arquivo), method: :patch) do |f|
+            td
+              i = arquivo.documento.nome
+            td = link_to "#{arquivo.upload_file_name}", arquivo.upload.url(:original, false), target: "_blank", title: "#{arquivo.observacao}"
+            td = f.input :score, label: false
+            td = f.check_box :cancelado, label: false
+            td = f.input :observacao, label: false
+            td = f.button :submit
+- else
+  h4.text-center Não existem documentos para avaliar.
+
+br

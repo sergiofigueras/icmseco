@@ -1,0 +1,27 @@
+h1 Listing arquivos
+
+table
+  thead
+    tr
+      th Nome
+      th Score
+      th Cancelado
+      th Observacao
+      th
+      th
+      th
+
+  tbody
+    - @arquivos.each do |arquivo|
+      tr
+        td = arquivo.nome
+        td = arquivo.score
+        td = arquivo.cancelado
+        td = arquivo.observacao
+        td = link_to 'Show', arquivo
+        td = link_to 'Edit', edit_arquivo_path(arquivo)
+        td = link_to 'Destroy', arquivo, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Arquivo', new_arquivo_path

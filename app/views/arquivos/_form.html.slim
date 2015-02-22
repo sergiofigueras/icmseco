@@ -1,0 +1,8 @@
+= form_for(@arquivo = Arquivo.new, url: documento_arquivos_path(:documento_id), html: { multipart: true, class: "dropzone"}) do |f|
+  .fallback
+    = @documento
+    .form-inputs
+      = f.file_field :upload, label: "Selecionar arquivo"
+
+    .form-actions
+      = f.button :submit, label: "ENVIAR"

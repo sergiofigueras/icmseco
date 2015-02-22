@@ -1,0 +1,23 @@
+h1 Usuários
+
+table.table.table-striped
+  thead
+    tr
+      th Nome
+      th Sobrenome
+      th Email
+      th
+  tboby
+    - @usuarios.each do |usuario|
+      tr
+        td = usuario.nome
+        td = usuario.sobrenome
+        td = usuario.email
+        td
+          .btn-group.pull-right
+            = link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-default btn-sm'
+            = link_to 'Excluir', usuario, data: {:confirm => 'Tem certeza?'}, :method => :delete, class: 'btn btn-default btn-sm'
+
+br
+
+= link_to 'Criar usuário', new_usuario_path, class: 'btn btn-primary'

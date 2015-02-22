@@ -1,0 +1,26 @@
+= render 'shared/flash'
+
+- if @arquivos_meioambiente.any?
+  .text-center.h4 MEIO AMBIENTE
+  table.table
+    thead
+      tr
+        th.text-center Documento
+        th.text-center Nome
+        th.text-center Nota
+        th.text-center Cancelado?
+        th.text-center Observação
+        th.text-center
+
+    tbody
+      - @arquivos_meioambiente.each do |arquivo|
+          tr
+            td.text-center = arquivo.documento.nome
+            td.text-center = link_to "#{arquivo.upload_file_name}", arquivo.upload.url(:original, false), target: "_blank", title: "#{arquivo.observacao}", class: "#{estilo_arquivo(arquivo)}"
+            td.text-center = arquivo.score
+            td.text-center = check_box_tag '', '', arquivo.cancelado, disabled: true
+            td.text-center = arquivo.observacao
+- else
+  h4.text-center Nao existem documentos para visualizar.
+
+br

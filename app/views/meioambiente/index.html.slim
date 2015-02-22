@@ -1,0 +1,56 @@
+= render 'shared/flash'
+.progress
+    .progress-bar.progress-bar-success aria-valuenow="#{desempenho_total_meioambiente[:score_total]}" aria-valuemin="0" aria-valuemax="#{desempenho_total_meioambiente[:score_max]}" role="progressbar" style="width: #{desempenho_total_meioambiente[:porcentagem]}%"
+      .span.progress-type DESEMPENHO
+      .span.progress-completed #{@porcentagem_concluida}%
+- @meioambiente.each do |meioambiente|
+  .panel.panel-primary
+    .panel-heading
+      h4
+       .pullleft = fa_icon "star", text: "#{meioambiente.nome}"
+    .panel-body
+      .div
+        .pull-right
+          b = fa_icon'calendar', text: "#{ prazo_label(meioambiente.prazo) }"
+      br
+      p
+        .text-justify = meioambiente.desc
+        br
+        .centered
+          .text-center = link_to 'Visualizar Documentos', '#', class: 'btn btn-default btn-primary btn-large', "data-toggle" => "modal",  "data-target" => "#meioambiente-#{meioambiente.id}"
+
+        .modal.fade id="meioambiente-#{meioambiente.id}" tabindex="-1" role="dialog" aria-hidden="true"
+          .modal-dialog.visualizar-documentos-modal-size
+            .modal-content
+              .modal-header
+                button.close type="button" data-dismiss="modal" aria-hidden="true"
+                  .span &times;
+                .modal-title.h4.pullleft = fa_icon "book", text: "Lista de Documentos - #{meioambiente.nome}"
+              .modal-body
+                table.table
+                  thead
+                    tr
+                      th NOME
+                      th AVALIAÇÃO
+                      th ARQUIVOS
+                      th
+                  tbody
+                    - meioambiente.documentos.each do |documento|
+                      tr
+                        td = documento.nome
+                        td
+                          .progress
+                            .progress-bar.progress-bar-success aria-valuenow="#{score_total_documento(documento)}" aria-valuemin="0" aria-valuemax="#{score_max_documento(documento)}" role="progressbar" style="width: #{porcentagem_total_documento(documento)}%"
+                        td
+                          - documento.arquivos.each do |arquivo|
+                            = link_to "#{arquivo.upload_file_name}", arquivo.upload.url(:original, false), target: "_blank", title: "#{titulo_arquivo(arquivo)}", class: "#{estilo_arquivo(arquivo)}"
+                            = link_to documento_arquivo_path(id: arquivo.id, documento_id: documento.id), data: {:confirm => 'Are you sure?'}, :method => :delete
+                              = fa_icon "trash-o"
+                            br
+                        td = simple_form_for(@arquivo = Arquivo.new, url: documento_arquivos_path(documento.id)) do |f|
+                            .form-inputs.centered
+                              = f.file_field :upload, value: "Selecionar arquivo"
+                              br
+                            .form-actions
+                              .center = f.button :submit, value: "Enviar Arquivo", class: "btn btn-default btn-primary"
+br

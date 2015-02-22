@@ -1,0 +1,48 @@
+= simple_form_for(@usuario) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nome
+    = f.input :sobrenome
+    = f.input :email
+    - if current_usuario.admin?
+      table.table.table-striped
+        thead
+          tr
+            th Permissao
+            th Valor
+        tbody
+            tr
+              td Admin
+              td = f.check_box :admin
+            tr
+              td Avaliacao
+              td = f.check_box :avaliacao
+            tr
+              td Agricultura
+              td = f.check_box :agricultura
+            tr
+              td Assuntos Indigenas
+              td = f.check_box :assuntosindigenas
+            tr
+              td Educacao
+              td = f.check_box :educacao
+            tr
+              td Graficos
+              td = f.check_box :graficos
+            tr
+              td Meio Ambiente
+              td = f.check_box :meioambiente
+            tr
+              td Saude
+              td = f.check_box :saude
+            tr
+              td Vigilancia Sanitaria
+              td = f.check_box :vigilanciasanitaria
+
+
+    = f.input :password
+    = f.input :password_confirmation
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  desc: MyText
+  prazo: 2015-02-16 20:52:45
+
+two:
+  nome: MyString
+  desc: MyText
+  prazo: 2015-02-16 20:52:45

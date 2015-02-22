@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Nome:
+  = @arquivo.nome
+p
+  strong Score:
+  = @arquivo.score
+p
+  strong Cancelado:
+  = @arquivo.cancelado
+p
+  strong Observacao:
+  = @arquivo.observacao
+
+= link_to 'Edit', edit_arquivo_path(@arquivo)
+'|
+= link_to 'Back', arquivos_path
