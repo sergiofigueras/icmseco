@@ -1,8 +1,8 @@
-class CreateMeioambiente < ActiveRecord::Migration
+class CreateAcoes < ActiveRecord::Migration
   def change
-    create_table :meioambiente do |t|
+    create_table :acoes do |t|
       t.string :nome
-      t.text :desc
+      t.string :desc
       t.datetime :prazo
 
       t.timestamps null: false

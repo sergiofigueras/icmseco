@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def notificacoes_arquivo(arquivo)
+    texto_notificacao = ''
+    if arquivo.notificacao != nil
+      texto_notificacao = "#{arquivo.notificacao.texto}"
+    end
+    return texto_notificacao
+  end
+
   def nav_status(controller)
     if params[:controller] == controller
       'active'
@@ -19,17 +27,17 @@ module ApplicationHelper
     end
   end
 
-  def desempenho_total_meioambiente
-    meioambiente = Meioambiente.all
-    score_max_meioambiente = 0
-    score_total_meioambiente = 0
-    meioambiente.each do |meioambiente|
-      score_max_meioambiente += meioambiente.documentos.size * 100
-      meioambiente.documentos.each do |documento|
-        score_total_meioambiente += score_total_documento(documento)
+  def desempenho_total_acao
+    acao = Acao.all
+    score_max_acao = 0
+    score_total_acao = 0
+    acao.each do |acao|
+      score_max_acao += acao.documentos.size * 100
+      acao.documentos.each do |documento|
+        score_total_acao += score_total_documento(documento)
       end
     end
-    return {score_max: score_max_meioambiente, score_total: score_total_meioambiente.to_f, porcentagem: score_total_meioambiente.to_f / score_max_meioambiente.to_f * 100}
+    return {score_max: score_max_acao, score_total: score_total_acao.to_f, porcentagem: score_total_acao.to_f / score_max_acao.to_f * 100}
   end
 
   def estilo_arquivo(arquivo)

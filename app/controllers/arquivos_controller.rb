@@ -12,10 +12,10 @@ class ArquivosController < ApplicationController
   end
 
   def todos
-    @arquivos_meioambiente = []
-    documentos = Documento.where.not(:meioambiente_id => nil)
+    @arquivos_acoes = []
+    documentos = Documento.where.not(:acao_id => nil)
     documentos.each do |documento|
-      @arquivos_meioambiente += documento.arquivos
+      @arquivos_acoes += documento.arquivos
     end
   end
 
@@ -42,6 +42,10 @@ class ArquivosController < ApplicationController
   # PATCH/PUT /arquivos/1
   def update
     if @arquivo.update(arquivo_params)
+      if (params[:texto] != nil)
+        notificacao = Notificacao.new(arquivo: @arquivo, texto: params[:texto])
+        notificacao.save
+      end
       redirect_to :back, notice: "Arquivo enviado com sucesso!"
     else
       render :edit
@@ -63,6 +67,6 @@ class ArquivosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def arquivo_params
-      params.require(:arquivo).permit(:score, :cancelado, :observacao, :upload)
+      params.require(:arquivo).permit(:score, :cancelado, :upload)
     end
 end

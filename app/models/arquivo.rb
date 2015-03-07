@@ -1,5 +1,6 @@
 class Arquivo < ActiveRecord::Base
   belongs_to :documento
+  has_one :notificacao
   has_attached_file :upload
   validates_presence_of :upload
   validates_with AttachmentPresenceValidator, :attributes => :upload

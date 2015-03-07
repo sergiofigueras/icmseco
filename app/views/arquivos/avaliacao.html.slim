@@ -29,7 +29,7 @@ javascript:
             td = link_to "#{arquivo.upload_file_name}", arquivo.upload.url(:original, false), target: "_blank", title: "#{arquivo.observacao}"
             td = f.input :score, label: false
             td = f.check_box :cancelado, label: false
-            td = f.input :observacao, label: false
+            td = text_field_tag :texto
             td = f.button :submit
 - else
   h4.text-center Não existem documentos para avaliar.

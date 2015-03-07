@@ -1,0 +1,7 @@
+- @notificacoes.each do |notificacao|
+  - if notificacao
+    .alert.alert-dismissable.alert-warning
+      .text-center.h6 = "Nova Notificação em: #{notificacao.arquivo.documento.acao.tipo} / #{notificacao.arquivo.documento.acao.nome} / #{notificacao.arquivo.documento.nome} / #{notificacao.arquivo.upload_file_name}"
+      .text-center.i.h4 = notificacao.texto
+      = simple_form_for(notificacao, url: ack_path(notificacao), :html => { :method => :post }) do |f|
+        .text-center  = f.button :submit, 'Ok, Entendi', class: "btn-info"

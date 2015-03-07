@@ -1,20 +1,33 @@
-.navbar.navbar-inverse.navbar-fixed-top
-     .container
+nav.navbar.navbar-inverse.navbar-fixed-top
+     .container-fluid
       .navbar-header
         = link_to image_tag('logo-header.png', class: 'logo-header-size'), root_path, class: 'navbar-brand'
-      .navbar-collapse
-        - if current_usuario.meioambiente?
-          ul.nav.navbar-nav
-            li = link_to 'Meio Ambiente', meioambiente_index_path, "data-no-turbolink" => "true"
-        - if current_usuario.avaliacao?
-          ul.nav.navbar-nav
-            li = link_to 'Avaliação', arquivos_avaliacao_path, "data-no-turbolink" => "true"
-          ul.nav.navbar-nav
-            li = link_to 'Arquivos', arquivos_todos_path
-        - if current_usuario.admin?
-          ul.nav.navbar-nav
-            li = link_to 'Usuários', usuarios_path
-
+      .collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li.dropdown
+            a.dropdown-toggle href="#" role="button" aria-expanded="false" data-toggle="dropdown"
+              | Áreas
+              span.caret
+            ul.dropdown-menu role="menu"
+              - if current_usuario.agua?
+                  li = link_to 'Qualidade da Água', visualizar_path(tipo: 'agua'), "data-no-turbolink" => "true"
+              - if current_usuario.agricultura?
+                  li = link_to 'Agricultura', visualizar_path(tipo: 'agricultura'), "data-no-turbolink" => "true"
+              - if current_usuario.pmma?
+                  li = link_to 'PMMA', visualizar_path(tipo: 'pmma'), "data-no-turbolink" => "true"
+              - if current_usuario.ccq?
+                  li = link_to 'CCQ', visualizar_path('ccq'), "data-no-turbolink" => "true"
+              - if current_usuario.saneamento_basico?
+                  li = link_to 'Saneamento Básico', visualizar_path('saneamento_basico'), "data-no-turbolink" => "true"
+              - if current_usuario.saneamento_basico?
+                  li = link_to 'Unidades de Conservação', visualizar_path('unidades_conservacao'), "data-no-turbolink" => "true"
+              - if current_usuario.saneamento_basico?
+                  li = link_to 'Resíduos Sólidos', visualizar_path('destinacao_residuos_solidos'), "data-no-turbolink" => "true"
+            - if current_usuario.avaliacao?
+                li = link_to 'Avaliação', arquivos_avaliacao_path, "data-no-turbolink" => "true"
+                li = link_to 'Arquivos', arquivos_todos_path
+            - if current_usuario.admin?
+                li = link_to 'Usuários', usuarios_path
         ul.nav.navbar-nav.pull-right
           li = link_to current_usuario.full_nome, edit_usuario_path(current_usuario)
           li = link_to 'Sair', destroy_usuario_session_path, method: :delete
